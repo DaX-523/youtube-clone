@@ -1,11 +1,11 @@
 import React from "react";
-import SidePannel from "./SidePannel.jsx";
+import SidePanel from "./SidePanel.jsx";
 import MainContainer from "./MainContainer.jsx";
 
 const Body = () => {
   return (
-    <div className="flex">
-      <SidePannel />
+    <div className="flex ">
+      <SidePanel />
       <MainContainer />
     </div>
   );
