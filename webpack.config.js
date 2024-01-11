@@ -3,6 +3,10 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const dotenv = require("dotenv");
+const { DefinePlugin } = require("webpack");
+let envKeys;
+const env = dotenv.config().parsed;
 
 const isProduction = process.env.NODE_ENV == "production";
 
@@ -12,16 +16,24 @@ const config = {
   entry: "./src/index.jsx",
   output: {
     path: path.resolve(__dirname, "dist"),
+    publicPath: "/",
   },
   devServer: {
     open: true,
     host: "localhost",
+    historyApiFallback: true,
   },
   plugins: [
     new MiniCssExtractPlugin({
       filename: "index.css",
       chunkFilename: "index.css",
     }),
+    new DefinePlugin(
+      Object.keys(env).reduce((prev, next) => {
+        prev[`process.env.${next}`] = JSON.stringify(env[next]);
+        return prev;
+      }, {})
+    ),
 
     new HtmlWebpackPlugin({
       template: path.join(__dirname, "src", "index.html"),

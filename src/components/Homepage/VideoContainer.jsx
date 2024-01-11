@@ -1,20 +1,21 @@
-import React, { useEffect } from "react";
-import { YT_VIDEOS_URL } from "../../utils/constants";
-import { useDispatch } from "react-redux";
-import { addMoviesData } from "../../utils/videoSlice";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import VideoCard from "./VideoCard.jsx";
+import { Link } from "react-router-dom";
 
 const VideoContainer = () => {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    getVideos();
-  }, []);
+  const videos = useSelector((store) => store?.videoslice?.videos);
+  if (!videos.length) return null;
 
-  const getVideos = async () => {
-    const data = await fetch(YT_VIDEOS_URL);
-    const json = await data.json();
-    dispatch(addMoviesData(json.items));
-  };
-  return <div>VideoContainer</div>;
+  return (
+    <div className="flex flex-wrap">
+      {videos.map((video) => (
+        <Link to={"/watch?v=" + video?.id}>
+          <VideoCard key={video?.id} info={video} />
+        </Link>
+      ))}
+    </div>
+  );
 };
 
 export default VideoContainer;
