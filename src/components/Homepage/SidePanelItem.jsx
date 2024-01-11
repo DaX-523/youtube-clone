@@ -8,11 +8,8 @@ const SidePanelItem = ({ names }) => {
         {names.map((name, index) => {
           if (name === "Home") {
             return (
-              <Link to={"/"}>
-                <li
-                  className="m-1 p-1 px-5 bg-gray-50 hover:bg-slate-100 cursor-pointer"
-                  key={index}
-                >
+              <Link to={"/"} key={index}>
+                <li className="m-1 p-1 px-5 bg-gray-50 hover:bg-slate-100 cursor-pointer">
                   {name}
                 </li>
               </Link>
