@@ -4,6 +4,7 @@ import { VIDEO_INFO_URL } from "../../utils/constants";
 import { useDispatch } from "react-redux";
 import { closeMenuView } from "../../utils/appSlice";
 import CommentSection from "./CommentSection.jsx";
+import LiveChat from "./LiveChat.jsx";
 
 const WatchPage = () => {
   const [searchParams] = useSearchParams();
@@ -19,22 +20,25 @@ const WatchPage = () => {
       VIDEO_INFO_URL + videoId + "&key=" + process.env.GOOGLE_API_KEY
     );
     const json = await data.json();
-    console.log(json.items[0]);
+    // console.log(json.items[0]);
   };
 
   return (
-    <div>
-      <div>
-        <iframe
-          className="p-6 ml-16 rounded-2xl"
-          width="1200"
-          height="600"
-          src={"https://www.youtube.com/embed/" + videoId}
-          title="YouTube video player"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowFullScreen
-        ></iframe>
+    <div className="w-full">
+      <div className="flex">
+        <div>
+          <iframe
+            className=" ml-12 rounded-lg"
+            width="1100"
+            height="550"
+            src={"https://www.youtube.com/embed/" + videoId}
+            title="YouTube video player"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+          ></iframe>
+        </div>
+        <LiveChat />
       </div>
       <div>
         <CommentSection />
